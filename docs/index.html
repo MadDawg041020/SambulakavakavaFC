@@ -3,502 +3,843 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sambulakavakava FC Tournament</title>
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiU2FtYnVsYWthdmFrYXZhIEZDIFRvdXJuYW1lbnQiLCJzaG9ydF9uYW1lIjoiU2FtYnVsYWthdmFrYXZhIEZDIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMxZTQwYWYiLCJ0aGVtZV9jb2xvciI6IiMxZTQwYWYiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRJNElpQm9aV2xuYUhROUlqRXlPQ0lpSUhacFpYZENiM2c5SWpBZ01DQXhNamdnTVRJNElpQm1hV3hzUFNJak1UWTBNREF3WmlJZ2VHMXNibk05SW1oMGRIQTZMeTkzZDNjdWR6TXViM0puTHpJd01EQXZjM1puSWo0OGNtVmpkQ0IzYVdSMGFEMGlNVEk0SWlCb1pXbG5hSFE5SWpFeU9DSWdabWxzYkQwaUkxWkdSa1pHUmlJdkBqOGNtVmpkQ0IzYVdSMGFEMGlPVFlpSUdobGFXZG9kRDBpT1RZaUlIZzlJakUySWlCNVBTSXhOaUlnWm1sc2JEMGlJekF3TnpORVJpSXZQangwWlhoMElIZzlJalkwSWlCNVBTSTJOQ0lnWm1sc2JEMGlJMVpHUmtaR1JpSWdabTl1ZEMxbVlXMXBiSGs5SWtGeWFXRnNJaUJtYjI1MExYTnBlbVU5SWpFMklpQjBaWGgwTFdGdVkyaHZjajBpYldsa1pHeGxJajVUUVU5VVBDOTBaWGgwUGp3dmMzWm5QZz09IiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJzaXplcyI6IjEyOHgxMjgifV19">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sambulakavakava FC Tournament Manager</title>
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    <script>
+        // Create manifest dynamically
+        const manifest = {
+            "name": "Sambulakavakava FC Tournament Manager",
+            "short_name": "Sambulakavakava FC",
+            "description": "Fully functional tournament manager for Sambulakavakava FC - create and manage football tournaments",
+            "start_url": "./",
+            "display": "standalone",
+            "background_color": "#1e3a8f",
+            "theme_color": "#1e3a8f",
+            "id": "sambulakavakava-fc-tournament",
+            "icons": [
+                {
+                    "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48Y2lyY2xlIGN4PSI1MTIiIGN5PSI1MTIiIHI9IjE1MiIgZmlsbD0iIzFlM2E4ZiIvPjwvY2lyY2xlPjxyZWN0IHg9IjEwMCIgeT0iMTAwIiB3aWR0aD0iMzEyIiBoZWlnaHQ9IjMxMiIgZmlsbD0iI2ZmZmZmZiIvPjwvcmVjdD48dGV4dCB4PSIyNTYiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2FmMGFmNCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiPlNBTUJVTEFLQVZBS0FWQUZDPC90ZXh0Pjwvc3ZnPg==",
+                    "sizes": "512x512",
+                    "type": "image/svg+xml",
+                    "purpose": "any maskable"
+                }
+            ]
+        };
+
+        // Create manifest blob and URL
+        const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-placeholder').href = manifestURL;
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                self.addEventListener('install', event => {
+                    event.waitUntil(self.skipWaiting());
+                });
+                
+                self.addEventListener('activate', event => {
+                    event.waitUntil(self.clients.claim());
+                });
+                
+                self.addEventListener('fetch', event => {
+                    event.respondWith(fetch(event.request));
+                });
+            `;
+            
+            const swBlob = new Blob([swCode], { type: 'text/javascript' });
+            const swURL = URL.createObjectURL(swBlob);
+            
+            navigator.serviceWorker.register(swURL).then(registration => {
+                console.log('Service Worker registered successfully');
+            }).catch(error => {
+                console.log('Service Worker registration failed');
+            });
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
-        .animate-bounce-slow { animation: bounce 2s infinite; }
-        .tournament-bracket { display: grid; gap: 1rem; }
-        .match-card { background: white; border-radius: 12px; padding: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .winner-highlight { background: linear-gradient(45deg, #10b981, #34d399); color: white; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            min-height: 100vh;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #666666 0%, #444444 100%);
+            box-shadow: 0 4px 16px rgba(102, 102, 102, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 24px rgba(102, 102, 102, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+            box-shadow: 0 4px 16px rgba(255, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 6px 24px rgba(255, 68, 68, 0.4);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .card h3 {
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+        }
+
+        .players-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 12px 0;
+        }
+
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin-bottom: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tournament-display {
+            grid-column: 1 / -1;
+        }
+
+        .bracket {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin: 16px 0;
+        }
+
+        .round {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 180px;
+        }
+
+        .round h4 {
+            text-align: center;
+            margin-bottom: 8px;
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .match {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .match:hover {
+            border-color: #00d4ff;
+            transform: translateY(-1px);
+        }
+
+        .match-players {
+            margin-bottom: 8px;
+        }
+
+        .player {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px;
+            margin: 3px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .player:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .player.winner {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid #00d4ff;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .leaderboard {
+            grid-column: 1 / -1;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .leaderboard-item.first {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 193, 7, 0.2));
+            border-color: #ffd700;
+        }
+
+        .leaderboard-item.second {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(169, 169, 169, 0.2));
+            border-color: #c0c0c0;
+        }
+
+        .leaderboard-item.third {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(184, 115, 51, 0.2));
+            border-color: #cd7f32;
+        }
+
+        .position {
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 30px;
+            text-align: center;
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .bracket {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .round {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
     </style>
 </head>
-<body class="gradient-bg min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <div class="flex items-center justify-center mb-4">
-                <svg class="w-16 h-16 mr-4" viewBox="0 0 128 128" fill="#FFFFFF">
-                    <circle cx="64" cy="64" r="60" fill="#007346"/>
-                    <circle cx="64" cy="64" r="48" fill="#FFFFFF" stroke="#007346" stroke-width="2"/>
-                    <text x="64" y="72" fill="#007346" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">SAOT</text>
-                </svg>
-                <div>
-                    <h1 class="text-4xl font-bold text-white mb-2">Sambulakavakava FC</h1>
-                    <p class="text-blue-100 text-lg">Tournament Manager</p>
-                </div>
-            </div>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚽ Sambulakavakava FC</h1>
+            <p>Professional Tournament Management System</p>
         </div>
 
-        <!-- Quick Start Button -->
-        <div class="text-center mb-8">
-            <button id="quickStartBtn" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-4 px-8 rounded-full text-xl shadow-lg card-hover animate-bounce-slow">
-                🚀 Quick Start Tournament
-            </button>
-        </div>
 
-        <!-- Main Content -->
-        <div class="grid md:grid-cols-2 gap-8 mb-8">
-            <!-- Player Management -->
-            <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                    <span class="mr-2">⚽</span> Player Management
-                </h2>
-                
-                <div class="mb-4">
-                    <input type="text" id="playerName" placeholder="Enter player name" 
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                
-                <button id="addPlayerBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg mb-4 transition-colors">
-                    Add Player
-                </button>
-                
-                <div id="playersList" class="space-y-2 max-h-60 overflow-y-auto">
-                    <!-- Players will be added here -->
-                </div>
-                
-                <div class="mt-4 text-sm text-gray-600">
-                    Total Players: <span id="playerCount" class="font-semibold">0</span>
-                </div>
-            </div>
 
-            <!-- Tournament Controls -->
-            <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                    <span class="mr-2">🏆</span> Tournament Setup
-                </h2>
-                
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tournament Type</label>
-                    <select id="tournamentType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="knockout">Knockout Tournament</option>
-                        <option value="roundrobin">Round Robin</option>
+        <div class="main-content">
+            <div class="card">
+                <h3>🏆 Tournament Setup</h3>
+                <div class="input-group">
+                    <label for="tournamentName">Tournament Name</label>
+                    <input type="text" id="tournamentName" placeholder="Enter tournament name" value="Sambulakavakava FC Championship">
+                </div>
+                <div class="input-group">
+                    <label for="tournamentType">Tournament Type</label>
+                    <select id="tournamentType">
+                        <option value="knockout">Knockout (Elimination)</option>
+                        <option value="roundRobin">Round Robin (Everyone plays everyone)</option>
                         <option value="groups">Group Stage + Knockout</option>
                     </select>
                 </div>
+                <button class="btn btn-secondary" onclick="createTournament()">Create Tournament</button>
+            </div>
+
+            <div class="card">
+                <h3>👥 Player Management</h3>
+                <div class="input-group">
+                    <label for="playerName">Player Name</label>
+                    <input type="text" id="playerName" placeholder="Enter player name">
+                </div>
+                <button class="btn" onclick="addPlayer()">Add Player</button>
+                <button class="btn btn-secondary" onclick="addSamplePlayers()">Add 8 Sample Players</button>
                 
-                <button id="startTournamentBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg mb-4 transition-colors">
-                    Start Tournament
-                </button>
+                <div class="players-list" id="playersList">
+                    <!-- Players will be added here -->
+                </div>
                 
-                <button id="randomizeBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg mb-4 transition-colors">
-                    🎲 Randomize Players
-                </button>
-                
-                <button id="exportBtn" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
-                    📊 Export Results
-                </button>
+                <button class="btn btn-danger" onclick="clearAllPlayers()">Clear All Players</button>
             </div>
         </div>
 
-        <!-- Tournament Display -->
-        <div id="tournamentDisplay" class="bg-white rounded-xl shadow-lg p-6 card-hover hidden">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <span class="mr-2">🏟️</span> Tournament Bracket
-            </h2>
-            <div id="bracketContainer" class="tournament-bracket">
+        <div class="card tournament-display hidden" id="tournamentDisplay">
+            <h3 id="tournamentTitle">🏆 Tournament Bracket</h3>
+            <div class="tournament-controls" style="text-align: center; margin-bottom: 20px;">
+                <button class="btn btn-secondary" onclick="startTournament()">Start Tournament</button>
+                <button class="btn btn-danger" onclick="resetTournament()">Reset Tournament</button>
+            </div>
+            <div id="bracketContainer" class="bracket">
                 <!-- Tournament bracket will be generated here -->
             </div>
         </div>
 
-        <!-- Results Display -->
-        <div id="resultsDisplay" class="bg-white rounded-xl shadow-lg p-6 card-hover hidden mt-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <span class="mr-2">🏅</span> Tournament Results
-            </h2>
-            <div id="resultsContainer">
-                <!-- Results will be displayed here -->
+        <div class="card leaderboard hidden" id="leaderboardDisplay">
+            <h3>🏅 Final Leaderboard</h3>
+            <div id="leaderboardContainer">
+                <!-- Leaderboard will be generated here -->
             </div>
         </div>
     </div>
 
     <script>
-        class TournamentManager {
-            constructor() {
-                this.players = [];
-                this.matches = [];
-                this.currentRound = 1;
-                this.tournamentType = 'knockout';
-                this.tournamentActive = false;
-                this.results = [];
-                
-                this.initializeEventListeners();
-            }
+        let players = [];
+        let tournament = null;
+        let currentTournament = null;
 
-            initializeEventListeners() {
-                document.getElementById('addPlayerBtn').addEventListener('click', () => this.addPlayer());
-                document.getElementById('playerName').addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') this.addPlayer();
-                });
-                document.getElementById('startTournamentBtn').addEventListener('click', () => this.startTournament());
-                document.getElementById('randomizeBtn').addEventListener('click', () => this.randomizePlayers());
-                document.getElementById('exportBtn').addEventListener('click', () => this.exportResults());
-                document.getElementById('quickStartBtn').addEventListener('click', () => this.quickStart());
-            }
-
-            addPlayer() {
-                const nameInput = document.getElementById('playerName');
-                const name = nameInput.value.trim();
-                
-                if (name && !this.players.includes(name)) {
-                    this.players.push(name);
-                    nameInput.value = '';
-                    this.updatePlayersList();
-                    this.updatePlayerCount();
-                }
-            }
-
-            removePlayer(playerName) {
-                this.players = this.players.filter(p => p !== playerName);
-                this.updatePlayersList();
-                this.updatePlayerCount();
-            }
-
-            updatePlayersList() {
-                const container = document.getElementById('playersList');
-                container.innerHTML = '';
-                
-                this.players.forEach(player => {
-                    const playerDiv = document.createElement('div');
-                    playerDiv.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-lg';
-                    playerDiv.innerHTML = `
-                        <span class="font-medium">${player}</span>
-                        <button onclick="tournament.removePlayer('${player}')" 
-                                class="text-red-500 hover:text-red-700 font-bold">×</button>
-                    `;
-                    container.appendChild(playerDiv);
-                });
-            }
-
-            updatePlayerCount() {
-                document.getElementById('playerCount').textContent = this.players.length;
-            }
-
-            randomizePlayers() {
-                for (let i = this.players.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [this.players[i], this.players[j]] = [this.players[j], this.players[i]];
-                }
-                this.updatePlayersList();
-            }
-
-            startTournament() {
-                if (this.players.length < 2) {
-                    alert('Need at least 2 players to start a tournament!');
-                    return;
-                }
-
-                this.tournamentType = document.getElementById('tournamentType').value;
-                this.tournamentActive = true;
-                this.currentRound = 1;
-                this.matches = [];
-                this.results = [];
-
-                if (this.tournamentType === 'knockout') {
-                    this.createKnockoutBracket();
-                } else if (this.tournamentType === 'roundrobin') {
-                    this.createRoundRobinMatches();
-                }
-
-                this.displayTournament();
-            }
-
-            createKnockoutBracket() {
-                let currentPlayers = [...this.players];
-                
-                // Add byes if needed
-                while (currentPlayers.length > 1 && (currentPlayers.length & (currentPlayers.length - 1)) !== 0) {
-                    currentPlayers.push('BYE');
-                }
-
-                this.createRoundMatches(currentPlayers);
-            }
-
-            createRoundMatches(players) {
-                const roundMatches = [];
-                
-                for (let i = 0; i < players.length; i += 2) {
-                    if (i + 1 < players.length) {
-                        const match = {
-                            id: `round${this.currentRound}_match${Math.floor(i/2) + 1}`,
-                            round: this.currentRound,
-                            player1: players[i],
-                            player2: players[i + 1],
-                            winner: null,
-                            completed: false
-                        };
-                        roundMatches.push(match);
-                    }
-                }
-                
-                this.matches.push(...roundMatches);
-            }
-
-            createRoundRobinMatches() {
-                for (let i = 0; i < this.players.length; i++) {
-                    for (let j = i + 1; j < this.players.length; j++) {
-                        const match = {
-                            id: `rr_${i}_${j}`,
-                            round: 1,
-                            player1: this.players[i],
-                            player2: this.players[j],
-                            winner: null,
-                            completed: false
-                        };
-                        this.matches.push(match);
-                    }
-                }
-            }
-
-            displayTournament() {
-                const display = document.getElementById('tournamentDisplay');
-                const container = document.getElementById('bracketContainer');
-                
-                display.classList.remove('hidden');
-                container.innerHTML = '';
-
-                if (this.tournamentType === 'knockout') {
-                    this.displayKnockoutBracket(container);
-                } else {
-                    this.displayRoundRobinMatches(container);
-                }
-            }
-
-            displayKnockoutBracket(container) {
-                const currentRoundMatches = this.matches.filter(m => m.round === this.currentRound);
-                
-                const roundDiv = document.createElement('div');
-                roundDiv.className = 'mb-6';
-                roundDiv.innerHTML = `<h3 class="text-xl font-bold mb-4 text-center">Round ${this.currentRound}</h3>`;
-                
-                const matchesGrid = document.createElement('div');
-                matchesGrid.className = 'grid gap-4 md:grid-cols-2 lg:grid-cols-3';
-                
-                currentRoundMatches.forEach(match => {
-                    const matchDiv = this.createMatchCard(match);
-                    matchesGrid.appendChild(matchDiv);
-                });
-                
-                roundDiv.appendChild(matchesGrid);
-                container.appendChild(roundDiv);
-            }
-
-            displayRoundRobinMatches(container) {
-                const matchesGrid = document.createElement('div');
-                matchesGrid.className = 'grid gap-4 md:grid-cols-2 lg:grid-cols-3';
-                
-                this.matches.forEach(match => {
-                    const matchDiv = this.createMatchCard(match);
-                    matchesGrid.appendChild(matchDiv);
-                });
-                
-                container.appendChild(matchesGrid);
-            }
-
-            createMatchCard(match) {
-                const matchDiv = document.createElement('div');
-                matchDiv.className = `match-card ${match.completed ? 'winner-highlight' : ''}`;
-                
-                const player1Display = match.player1 === 'BYE' ? '(BYE)' : match.player1;
-                const player2Display = match.player2 === 'BYE' ? '(BYE)' : match.player2;
-                
-                matchDiv.innerHTML = `
-                    <div class="text-center">
-                        <div class="font-semibold mb-2">${player1Display}</div>
-                        <div class="text-gray-500 mb-2">vs</div>
-                        <div class="font-semibold mb-4">${player2Display}</div>
-                        ${!match.completed ? `
-                            <div class="space-y-2">
-                                <button onclick="tournament.setWinner('${match.id}', '${match.player1}')" 
-                                        class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-sm">
-                                    ${player1Display} Wins
-                                </button>
-                                <button onclick="tournament.setWinner('${match.id}', '${match.player2}')" 
-                                        class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-sm">
-                                    ${player2Display} Wins
-                                </button>
-                            </div>
-                        ` : `
-                            <div class="font-bold text-lg">🏆 ${match.winner}</div>
-                        `}
-                    </div>
-                `;
-                
-                return matchDiv;
-            }
-
-            setWinner(matchId, winner) {
-                const match = this.matches.find(m => m.id === matchId);
-                if (match && !match.completed) {
-                    match.winner = winner;
-                    match.completed = true;
-                    
-                    this.results.push({
-                        match: `${match.player1} vs ${match.player2}`,
-                        winner: winner,
-                        round: match.round,
-                        timestamp: new Date().toLocaleString()
-                    });
-                    
-                    this.checkRoundCompletion();
-                    this.displayTournament();
-                }
-            }
-
-            checkRoundCompletion() {
-                const currentRoundMatches = this.matches.filter(m => m.round === this.currentRound);
-                const completedMatches = currentRoundMatches.filter(m => m.completed);
-                
-                if (completedMatches.length === currentRoundMatches.length) {
-                    if (this.tournamentType === 'knockout') {
-                        this.advanceKnockoutRound();
-                    } else {
-                        this.showFinalResults();
-                    }
-                }
-            }
-
-            advanceKnockoutRound() {
-                const winners = this.matches
-                    .filter(m => m.round === this.currentRound && m.completed)
-                    .map(m => m.winner)
-                    .filter(w => w !== 'BYE');
-                
-                if (winners.length === 1) {
-                    this.showFinalResults();
-                    return;
-                }
-                
-                this.currentRound++;
-                this.createRoundMatches(winners);
-                this.displayTournament();
-            }
-
-            showFinalResults() {
-                const resultsDisplay = document.getElementById('resultsDisplay');
-                const container = document.getElementById('resultsContainer');
-                
-                resultsDisplay.classList.remove('hidden');
-                
-                if (this.tournamentType === 'knockout') {
-                    const champion = this.matches
-                        .filter(m => m.round === this.currentRound && m.completed)
-                        .map(m => m.winner)[0];
-                    
-                    container.innerHTML = `
-                        <div class="text-center">
-                            <div class="text-6xl mb-4">🏆</div>
-                            <h3 class="text-3xl font-bold text-yellow-600 mb-4">CHAMPION</h3>
-                            <div class="text-2xl font-bold">${champion}</div>
-                        </div>
-                    `;
-                } else {
-                    this.showRoundRobinResults(container);
-                }
-            }
-
-            showRoundRobinResults(container) {
-                const playerStats = {};
-                
-                this.players.forEach(player => {
-                    playerStats[player] = { wins: 0, losses: 0, matches: 0 };
-                });
-                
-                this.matches.forEach(match => {
-                    if (match.completed) {
-                        const loser = match.player1 === match.winner ? match.player2 : match.player1;
-                        playerStats[match.winner].wins++;
-                        playerStats[loser].losses++;
-                        playerStats[match.winner].matches++;
-                        playerStats[loser].matches++;
-                    }
-                });
-                
-                const sortedPlayers = Object.entries(playerStats)
-                    .sort(([,a], [,b]) => b.wins - a.wins)
-                    .map(([player, stats], index) => ({ player, stats, position: index + 1 }));
-                
-                container.innerHTML = `
-                    <div class="space-y-4">
-                        ${sortedPlayers.map(({player, stats, position}) => `
-                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg ${position === 1 ? 'bg-yellow-100 border-2 border-yellow-400' : ''}">
-                                <div class="flex items-center">
-                                    <span class="text-2xl mr-3">${position === 1 ? '🥇' : position === 2 ? '🥈' : position === 3 ? '🥉' : '🏅'}</span>
-                                    <span class="font-bold text-lg">${player}</span>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-semibold">${stats.wins}W - ${stats.losses}L</div>
-                                    <div class="text-sm text-gray-600">${stats.matches} matches</div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            }
-
-            exportResults() {
-                if (this.results.length === 0) {
-                    alert('No tournament results to export yet!');
-                    return;
-                }
-                
-                const exportData = {
-                    tournament: {
-                        type: this.tournamentType,
-                        players: this.players,
-                        date: new Date().toLocaleDateString()
-                    },
-                    results: this.results
-                };
-                
-                const dataStr = JSON.stringify(exportData, null, 2);
-                const dataBlob = new Blob([dataStr], {type: 'application/json'});
-                const url = URL.createObjectURL(dataBlob);
-                
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `sambulakavakava-tournament-${new Date().toISOString().split('T')[0]}.json`;
-                link.click();
-                
-                URL.revokeObjectURL(url);
-            }
-
-            quickStart() {
-                // Add sample players
-                this.players = ['Uakitonga', 'Kaabe', 'Rereao', 'Sakanta', 'Temoaiti', 'Kaberiera', 'Tekiera', 'Koakoa'];
-                this.updatePlayersList();
-                this.updatePlayerCount();
-                
-                // Set tournament type to knockout
-                document.getElementById('tournamentType').value = 'knockout';
-                
-                // Start tournament automatically
-                setTimeout(() => {
-                    this.startTournament();
-                }, 500);
-                
-                // Hide quick start button
-                document.getElementById('quickStartBtn').style.display = 'none';
+        function addPlayer() {
+            const playerName = document.getElementById('playerName').value.trim();
+            if (playerName && !players.includes(playerName)) {
+                players.push(playerName);
+                document.getElementById('playerName').value = '';
+                updatePlayersList();
             }
         }
 
-        // Initialize the tournament manager
-        const tournament = new TournamentManager();
+        function removePlayer(playerName) {
+            players = players.filter(p => p !== playerName);
+            updatePlayersList();
+        }
 
-        // Service Worker Registration for PWA
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('data:application/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZXZlbnQgPT4geyBjb25zb2xlLmxvZygnU1cgaW5zdGFsbGVkJyk7IH0pOyBzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2FjdGl2YXRlJywgZXZlbnQgPT4geyBjb25zb2xlLmxvZygnU1cgYWN0aXZhdGVkJyk7IH0pOw==')
-                .then(registration => console.log('SW registered'))
-                .catch(error => console.log('SW registration failed'));
+        function updatePlayersList() {
+            const playersList = document.getElementById('playersList');
+            playersList.innerHTML = '';
+            
+            players.forEach(player => {
+                const playerItem = document.createElement('div');
+                playerItem.className = 'player-item';
+                playerItem.innerHTML = `
+                    <span>${player}</span>
+                    <button class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;" onclick="removePlayer('${player}')">Remove</button>
+                `;
+                playersList.appendChild(playerItem);
             });
         }
+
+        function addSamplePlayers() {
+            const samplePlayers = [
+                'Lionel Messi', 'Cristiano Ronaldo', 'Neymar Jr', 'Kylian Mbappé',
+                'Erling Haaland', 'Kevin De Bruyne', 'Virgil van Dijk', 'Mohamed Salah'
+            ];
+            
+            samplePlayers.forEach(player => {
+                if (!players.includes(player)) {
+                    players.push(player);
+                }
+            });
+            updatePlayersList();
+        }
+
+        function clearAllPlayers() {
+            players = [];
+            updatePlayersList();
+        }
+
+        function quickStartTournament() {
+            // Add sample players if none exist
+            if (players.length === 0) {
+                addSamplePlayers();
+            }
+            
+            // Set tournament type to knockout
+            document.getElementById('tournamentType').value = 'knockout';
+            
+            // Create and start tournament
+            createTournament();
+            setTimeout(() => {
+                startTournament();
+            }, 500);
+        }
+
+        function createTournament() {
+            if (players.length < 2) {
+                alert('Please add at least 2 players to create a tournament.');
+                return;
+            }
+
+            const tournamentName = document.getElementById('tournamentName').value || 'Sambulakavakava FC Tournament';
+            const tournamentType = document.getElementById('tournamentType').value;
+
+            currentTournament = {
+                name: tournamentName,
+                type: tournamentType,
+                players: [...players],
+                matches: [],
+                completed: false
+            };
+
+            document.getElementById('tournamentTitle').textContent = `🏆 ${tournamentName}`;
+            document.getElementById('tournamentDisplay').classList.remove('hidden');
+            
+            generateBracket();
+        }
+
+        function generateBracket() {
+            if (!currentTournament) return;
+
+            const bracketContainer = document.getElementById('bracketContainer');
+            bracketContainer.innerHTML = '';
+
+            if (currentTournament.type === 'knockout') {
+                generateKnockoutBracket();
+            } else if (currentTournament.type === 'roundRobin') {
+                generateRoundRobinMatches();
+            }
+        }
+
+        function generateKnockoutBracket() {
+            const players = [...currentTournament.players];
+            
+            // Shuffle players for random matchups
+            for (let i = players.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [players[i], players[j]] = [players[j], players[i]];
+            }
+
+            // Ensure we have a power of 2 number of players
+            while (players.length & (players.length - 1)) {
+                players.push('BYE');
+            }
+
+            const rounds = Math.log2(players.length);
+            currentTournament.rounds = [];
+
+            // Generate first round
+            const firstRound = [];
+            for (let i = 0; i < players.length; i += 2) {
+                const match = {
+                    id: `r1m${i/2}`,
+                    player1: players[i],
+                    player2: players[i + 1],
+                    winner: null,
+                    score1: 0,
+                    score2: 0
+                };
+                firstRound.push(match);
+            }
+            currentTournament.rounds.push(firstRound);
+
+            // Generate subsequent rounds
+            for (let round = 1; round < rounds; round++) {
+                const roundMatches = [];
+                const prevRoundSize = currentTournament.rounds[round - 1].length;
+                
+                for (let i = 0; i < prevRoundSize / 2; i++) {
+                    const match = {
+                        id: `r${round + 1}m${i}`,
+                        player1: 'TBD',
+                        player2: 'TBD',
+                        winner: null,
+                        score1: 0,
+                        score2: 0
+                    };
+                    roundMatches.push(match);
+                }
+                currentTournament.rounds.push(roundMatches);
+            }
+
+            displayKnockoutBracket();
+        }
+
+        function displayKnockoutBracket() {
+            const bracketContainer = document.getElementById('bracketContainer');
+            bracketContainer.innerHTML = '';
+
+            currentTournament.rounds.forEach((round, roundIndex) => {
+                const roundDiv = document.createElement('div');
+                roundDiv.className = 'round';
+                
+                const roundTitle = document.createElement('h4');
+                if (roundIndex === currentTournament.rounds.length - 1) {
+                    roundTitle.textContent = 'Final';
+                } else if (roundIndex === currentTournament.rounds.length - 2) {
+                    roundTitle.textContent = 'Semi-Final';
+                } else {
+                    roundTitle.textContent = `Round ${roundIndex + 1}`;
+                }
+                roundDiv.appendChild(roundTitle);
+
+                round.forEach(match => {
+                    const matchDiv = document.createElement('div');
+                    matchDiv.className = 'match';
+                    matchDiv.innerHTML = `
+                        <div class="match-players">
+                            <div class="player ${match.winner === match.player1 ? 'winner' : ''}" onclick="selectWinner('${match.id}', '${match.player1}')">
+                                <span>${match.player1}</span>
+                                <span class="score">${match.score1}</span>
+                            </div>
+                            <div class="player ${match.winner === match.player2 ? 'winner' : ''}" onclick="selectWinner('${match.id}', '${match.player2}')">
+                                <span>${match.player2}</span>
+                                <span class="score">${match.score2}</span>
+                            </div>
+                        </div>
+                        ${match.player1 !== 'TBD' && match.player2 !== 'TBD' && match.player1 !== 'BYE' && match.player2 !== 'BYE' ? 
+                            `<button class="btn" style="width: 100%; margin-top: 10px;" onclick="randomizeMatch('${match.id}')">Simulate Match</button>` : ''}
+                    `;
+                    roundDiv.appendChild(matchDiv);
+                });
+
+                bracketContainer.appendChild(roundDiv);
+            });
+        }
+
+        function selectWinner(matchId, winner) {
+            const match = findMatch(matchId);
+            if (!match || match.player1 === 'TBD' || match.player2 === 'TBD' || match.player1 === 'BYE' || match.player2 === 'BYE') return;
+
+            match.winner = winner;
+            
+            // Set scores
+            if (winner === match.player1) {
+                match.score1 = Math.floor(Math.random() * 3) + 1;
+                match.score2 = Math.floor(Math.random() * match.score1);
+            } else {
+                match.score2 = Math.floor(Math.random() * 3) + 1;
+                match.score1 = Math.floor(Math.random() * match.score2);
+            }
+
+            advanceWinner(matchId, winner);
+            displayKnockoutBracket();
+            checkTournamentComplete();
+        }
+
+        function randomizeMatch(matchId) {
+            const match = findMatch(matchId);
+            if (!match) return;
+
+            const winner = Math.random() < 0.5 ? match.player1 : match.player2;
+            selectWinner(matchId, winner);
+        }
+
+        function findMatch(matchId) {
+            for (let round of currentTournament.rounds) {
+                const match = round.find(m => m.id === matchId);
+                if (match) return match;
+            }
+            return null;
+        }
+
+        function advanceWinner(matchId, winner) {
+            const [, roundNum, matchNum] = matchId.match(/r(\d+)m(\d+)/);
+            const currentRoundIndex = parseInt(roundNum) - 1;
+            const currentMatchIndex = parseInt(matchNum);
+
+            if (currentRoundIndex < currentTournament.rounds.length - 1) {
+                const nextRoundIndex = currentRoundIndex + 1;
+                const nextMatchIndex = Math.floor(currentMatchIndex / 2);
+                const nextMatch = currentTournament.rounds[nextRoundIndex][nextMatchIndex];
+
+                if (currentMatchIndex % 2 === 0) {
+                    nextMatch.player1 = winner;
+                } else {
+                    nextMatch.player2 = winner;
+                }
+            }
+        }
+
+        function generateRoundRobinMatches() {
+            const players = [...currentTournament.players];
+            const matches = [];
+
+            for (let i = 0; i < players.length; i++) {
+                for (let j = i + 1; j < players.length; j++) {
+                    matches.push({
+                        id: `rr_${i}_${j}`,
+                        player1: players[i],
+                        player2: players[j],
+                        winner: null,
+                        score1: 0,
+                        score2: 0
+                    });
+                }
+            }
+
+            currentTournament.matches = matches;
+            displayRoundRobinMatches();
+        }
+
+        function displayRoundRobinMatches() {
+            const bracketContainer = document.getElementById('bracketContainer');
+            bracketContainer.innerHTML = '<h4>Round Robin Matches</h4>';
+
+            const matchesDiv = document.createElement('div');
+            matchesDiv.style.display = 'grid';
+            matchesDiv.style.gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 1fr))';
+            matchesDiv.style.gap = '15px';
+
+            currentTournament.matches.forEach(match => {
+                const matchDiv = document.createElement('div');
+                matchDiv.className = 'match';
+                matchDiv.innerHTML = `
+                    <div class="match-players">
+                        <div class="player ${match.winner === match.player1 ? 'winner' : ''}" onclick="selectWinner('${match.id}', '${match.player1}')">
+                            <span>${match.player1}</span>
+                            <span class="score">${match.score1}</span>
+                        </div>
+                        <div class="player ${match.winner === match.player2 ? 'winner' : ''}" onclick="selectWinner('${match.id}', '${match.player2}')">
+                            <span>${match.player2}</span>
+                            <span class="score">${match.score2}</span>
+                        </div>
+                    </div>
+                    <button class="btn" style="width: 100%; margin-top: 10px;" onclick="randomizeMatch('${match.id}')">Simulate Match</button>
+                `;
+                matchesDiv.appendChild(matchDiv);
+            });
+
+            bracketContainer.appendChild(matchesDiv);
+        }
+
+        function startTournament() {
+            if (!currentTournament) {
+                alert('Please create a tournament first.');
+                return;
+            }
+
+            // Handle BYE players in knockout tournaments
+            if (currentTournament.type === 'knockout') {
+                currentTournament.rounds[0].forEach(match => {
+                    if (match.player1 === 'BYE') {
+                        selectWinner(match.id, match.player2);
+                    } else if (match.player2 === 'BYE') {
+                        selectWinner(match.id, match.player1);
+                    }
+                });
+            }
+
+            displayKnockoutBracket();
+        }
+
+        function checkTournamentComplete() {
+            if (currentTournament.type === 'knockout') {
+                const finalMatch = currentTournament.rounds[currentTournament.rounds.length - 1][0];
+                if (finalMatch.winner) {
+                    showLeaderboard();
+                }
+            } else if (currentTournament.type === 'roundRobin') {
+                const allMatchesComplete = currentTournament.matches.every(match => match.winner);
+                if (allMatchesComplete) {
+                    showLeaderboard();
+                }
+            }
+        }
+
+        function showLeaderboard() {
+            const leaderboard = calculateLeaderboard();
+            const leaderboardContainer = document.getElementById('leaderboardContainer');
+            leaderboardContainer.innerHTML = '';
+
+            leaderboard.forEach((player, index) => {
+                const item = document.createElement('div');
+                item.className = `leaderboard-item ${index === 0 ? 'first' : index === 1 ? 'second' : index === 2 ? 'third' : ''}`;
+                
+                let medal = '';
+                if (index === 0) medal = '🥇';
+                else if (index === 1) medal = '🥈';
+                else if (index === 2) medal = '🥉';
+                else medal = `${index + 1}.`;
+
+                item.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span class="position">${medal}</span>
+                        <span style="font-size: 1.2rem; font-weight: bold;">${player.name}</span>
+                    </div>
+                    <div class="stats">
+                        <span>Wins: ${player.wins}</span>
+                        <span>Losses: ${player.losses}</span>
+                        <span>Goals: ${player.goalsFor}-${player.goalsAgainst}</span>
+                    </div>
+                `;
+                leaderboardContainer.appendChild(item);
+            });
+
+            document.getElementById('leaderboardDisplay').classList.remove('hidden');
+        }
+
+        function calculateLeaderboard() {
+            const playerStats = {};
+            
+            // Initialize stats for all players
+            currentTournament.players.forEach(player => {
+                if (player !== 'BYE') {
+                    playerStats[player] = {
+                        name: player,
+                        wins: 0,
+                        losses: 0,
+                        goalsFor: 0,
+                        goalsAgainst: 0,
+                        points: 0
+                    };
+                }
+            });
+
+            // Calculate stats from matches
+            const allMatches = currentTournament.type === 'knockout' 
+                ? currentTournament.rounds.flat() 
+                : currentTournament.matches;
+
+            allMatches.forEach(match => {
+                if (match.winner && match.player1 !== 'TBD' && match.player2 !== 'TBD' && match.player1 !== 'BYE' && match.player2 !== 'BYE') {
+                    const winner = match.winner;
+                    const loser = winner === match.player1 ? match.player2 : match.player1;
+                    
+                    playerStats[winner].wins++;
+                    playerStats[winner].points += 3;
+                    playerStats[winner].goalsFor += winner === match.player1 ? match.score1 : match.score2;
+                    playerStats[winner].goalsAgainst += winner === match.player1 ? match.score2 : match.score1;
+                    
+                    playerStats[loser].losses++;
+                    playerStats[loser].goalsFor += loser === match.player1 ? match.score1 : match.score2;
+                    playerStats[loser].goalsAgainst += loser === match.player1 ? match.score2 : match.score1;
+                }
+            });
+
+            // Sort by points, then by goal difference, then by goals scored
+            return Object.values(playerStats).sort((a, b) => {
+                if (b.points !== a.points) return b.points - a.points;
+                const goalDiffA = a.goalsFor - a.goalsAgainst;
+                const goalDiffB = b.goalsFor - b.goalsAgainst;
+                if (goalDiffB !== goalDiffA) return goalDiffB - goalDiffA;
+                return b.goalsFor - a.goalsFor;
+            });
+        }
+
+        function resetTournament() {
+            currentTournament = null;
+            document.getElementById('tournamentDisplay').classList.add('hidden');
+            document.getElementById('leaderboardDisplay').classList.add('hidden');
+        }
+
+        // Allow Enter key to add players
+        document.getElementById('playerName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addPlayer();
+            }
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978a24e553344046',t:'MTc1Njc4NjA4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978a5b3840814046',t:'MTc1Njc4ODMxMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
