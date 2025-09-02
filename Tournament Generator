@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a1428">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Sambulakavakava FC">
+    <title>Sambulakavakava FC</title>
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlNhbWJ1bGFrYXZha2F2YSBGQyIsCiAgInNob3J0X25hbWUiOiAiU2FtYnVsYWthdmFrYXZhIEZDIiwKICAiZGVzY3JpcHRpb24iOiAiVG91cm5hbWVudCBmaXh0dXJlcyBnZW5lcmF0b3IgZm9yIGZyaWVuZHMiLAogICJzdGFydF91cmwiOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBhMTQyOCIsCiAgInRoZW1lX2NvbG9yIjogIiMwYTE0MjgiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSXhNakFpSUdobGFXZG9kRDBpTVRJd0lqNDhZMmx5WTJ4bElHTjRQU0kyTUNJZ1kza2lQU0kyTUNJZ2NqMGlOVEFpSUdacGJHdzlJaU16TmpjNE9XRWlMejQ4ZEdWNGRDQjRQU0kyTUNJZ2VUMGlOekFpSUdacGJHdzlJaU0yTmpjNE9XRWlJSFJsZUhRdFlXNWphRzl5UFNKdGFXUmtiR1VpSUdadmJuUXRjMmw2WlQwaU1qQWlQaUJUUVVGRFBDOTBaWGgwUGp3dmMzWm5QZz09IiwKICAgICAgInNpemVzIjogIjEyMHgxMjAiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSXhPVElpSUdobGFXZG9kRDBpTVRreUlqNDhZMmx5WTJ4bElHTjRQU0k1TmlJZ1kza2lQU0k1TmlJZ2NqMGlPREFpSUdacGJHdzlJaU0yTmpjNE9XRWlMejQ4ZEdWNGRDQjRQU0k1TmlJZ2VUMGlNVEEySWlCbWFXeHNQU0lqTmpZM09EbGhJaUIwWlhoMExXRnVZMmh2Y2owaWJXbGtaR3hsSWlCbWIyNTBMWE5wZW1VOUlqTXlJajRnVTBGQlF6d3ZkR1Y0ZEQ0OEwzTjJaejQ9IiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0KfQ==">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a1428 0%, #1a2332 25%, #2d4a22 50%, #1a2332 75%, #0a1428 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 220, 232, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(40, 167, 69, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .fc25-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .fc25-tournament {
+            background: linear-gradient(135deg, #0a1428 0%, #1a2332 50%, #2d4a22 100%);
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="container mx-auto px-4 py-6 max-w-md">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">⚽ Sambulakavakava FC</h1>
+            <p class="text-blue-100">Create tournament fixtures</p>
+            <!-- Install App Button -->
+            <button 
+                id="installBtn"
+                onclick="installApp()"
+                class="mt-4 bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-2 rounded-lg font-bold text-sm transition-colors shadow-lg hidden"
+            >
+                📱 Install App
+            </button>
+        </div>
+
+        <!-- Add Player Section -->
+        <div class="fc25-card rounded-xl shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Add Players</h2>
+            <div class="flex gap-2 mb-4">
+                <input 
+                    type="text" 
+                    id="playerName" 
+                    placeholder="Enter player name"
+                    class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    maxlength="20"
+                >
+                <button 
+                    onclick="addPlayer()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                >
+                    Add
+                </button>
+            </div>
+            <div class="text-sm text-gray-600 mb-4">
+                Players added: <span id="playerCount" class="font-semibold">0</span>/20
+            </div>
+        </div>
+
+        <!-- Players List -->
+        <div class="fc25-card rounded-xl shadow-lg p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Players List</h3>
+            <div id="playersList" class="space-y-2">
+                <p class="text-gray-500 text-center py-4">No players added yet</p>
+            </div>
+        </div>
+
+
+
+        <!-- Winners Hall of Fame -->
+        <div id="winnersSection" class="fc25-card rounded-xl shadow-lg p-6 mb-6 hidden border-2 border-yellow-400">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">🏆 Hall of Fame</h3>
+            <div id="winnersList" class="space-y-2"></div>
+            <div class="flex gap-2 mt-4">
+                <button 
+                    onclick="clearWinners()"
+                    class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                >
+                    Clear Winners
+                </button>
+                <button 
+                    onclick="showWinnerStats()"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                >
+                    View Stats
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="fc25-card rounded-xl shadow-lg p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">⚡ Quick Actions</h3>
+            <div class="grid grid-cols-2 gap-3 mb-4">
+                <button 
+                    onclick="quickStart()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg text-sm font-medium transition-colors"
+                >
+                    🚀 Quick Start
+                </button>
+                <button 
+                    onclick="randomizeTeams()"
+                    class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-lg text-sm font-medium transition-colors"
+                >
+                    🎲 Shuffle Players
+                </button>
+                <button 
+                    onclick="showStats()"
+                    class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-3 rounded-lg text-sm font-medium transition-colors"
+                >
+                    📊 View Stats
+                </button>
+                <button 
+                    onclick="exportResults()"
+                    class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-3 rounded-lg text-sm font-medium transition-colors"
+                >
+                    💾 Export Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button 
+            onclick="startTournament()"
+            id="generateBtn"
+            class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
+            disabled
+        >
+            🏆 Start Tournament
+        </button>
+
+        <!-- Tournament Page -->
+        <div id="tournamentPage" class="fixed inset-0 fc25-tournament z-50 hidden">
+            <div class="container mx-auto px-4 py-6 max-w-md h-full overflow-y-auto">
+                <div class="text-center mb-6">
+                    <h1 class="text-2xl font-bold text-white mb-2">🏆 Tournament</h1>
+                    <p id="roundTitle" class="text-green-100">Round 1</p>
+                </div>
+                
+                <div id="tournamentDisplay" class="space-y-4 mb-6"></div>
+                
+                <!-- Next Round Button - Always visible -->
+                <div id="nextRoundSection" class="mb-6">
+                    <button 
+                        id="nextRoundBtn"
+                        onclick="nextRound()"
+                        class="w-full bg-gray-500 text-white py-5 rounded-xl font-bold text-xl shadow-lg transition-all cursor-not-allowed"
+                        disabled
+                    >
+                        ⚡ NEXT ROUND ⚡
+                    </button>
+                    <p id="nextRoundStatus" class="text-center text-green-100 text-sm mt-2">Complete all matches to advance</p>
+                </div>
+                    
+                    <div class="flex gap-3">
+                        <button 
+                            onclick="startWinnersTournament()"
+                            id="winnersTournamentBtn"
+                            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-colors hidden"
+                        >
+                            Winners Tournament
+                        </button>
+                        <button 
+                            onclick="startTournament()"
+                            class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium transition-colors"
+                        >
+                            Fresh Tournament
+                        </button>
+                        <button 
+                            onclick="goBackToPlayers()"
+                            class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 rounded-lg font-medium transition-colors"
+                        >
+                            Back
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let players = [];
+        let currentRound = [];
+        let winners = [];
+        let roundNumber = 1;
+        let matchResults = {};
+        let allWinners = []; // Track all winners from previous tournaments
+
+        function addPlayer() {
+            const nameInput = document.getElementById('playerName');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('Please enter a player name');
+                return;
+            }
+            
+            if (players.length >= 20) {
+                alert('Maximum 20 players allowed');
+                return;
+            }
+            
+            if (players.includes(name)) {
+                alert('Player already added');
+                return;
+            }
+            
+            players.push(name);
+            nameInput.value = '';
+            updatePlayersList();
+            updateGenerateButton();
+        }
+
+        function removePlayer(playerName) {
+            players = players.filter(p => p !== playerName);
+            updatePlayersList();
+            updateGenerateButton();
+        }
+
+        function updatePlayersList() {
+            const playersList = document.getElementById('playersList');
+            const playerCount = document.getElementById('playerCount');
+            
+            playerCount.textContent = players.length;
+            
+            if (players.length === 0) {
+                playersList.innerHTML = '<p class="text-gray-500 text-center py-4">No players added yet</p>';
+                return;
+            }
+            
+            playersList.innerHTML = players.map(player => `
+                <div class="flex justify-between items-center bg-gray-50 px-4 py-3 rounded-lg">
+                    <span class="font-medium text-gray-800">${player}</span>
+                    <button 
+                        onclick="removePlayer('${player}')"
+                        class="text-red-500 hover:text-red-700 font-bold text-lg"
+                    >
+                        ×
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateGenerateButton() {
+            const generateBtn = document.getElementById('generateBtn');
+            generateBtn.disabled = players.length < 2;
+        }
+
+        function startTournament() {
+            if (players.length < 2) return;
+            
+            // Reset tournament state
+            roundNumber = 1;
+            winners = [];
+            matchResults = {};
+            
+            // Shuffle players for first round
+            currentRound = [...players].sort(() => Math.random() - 0.5);
+            
+            // If odd number of players, add COM opponent
+            if (currentRound.length % 2 !== 0) {
+                currentRound.push('COM');
+            }
+            
+            displayTournament();
+            document.getElementById('tournamentPage').classList.remove('hidden');
+        }
+
+        function startWinnersTournament() {
+            if (allWinners.length < 2) {
+                alert('Need at least 2 winners from previous tournaments!');
+                return;
+            }
+            
+            // Reset tournament state
+            roundNumber = 1;
+            winners = [];
+            matchResults = {};
+            
+            // Use all winners for the tournament
+            currentRound = [...allWinners].sort(() => Math.random() - 0.5);
+            
+            // If odd number of players, add COM opponent
+            if (currentRound.length % 2 !== 0) {
+                currentRound.push('COM');
+            }
+            
+            displayTournament();
+            document.getElementById('tournamentPage').classList.remove('hidden');
+        }
+
+        function displayTournament() {
+            const tournamentDisplay = document.getElementById('tournamentDisplay');
+            const roundTitle = document.getElementById('roundTitle');
+            const nextRoundBtn = document.getElementById('nextRoundBtn');
+            
+            // Update round title
+            if (currentRound.length === 2) {
+                roundTitle.textContent = '🏆 Final';
+            } else if (currentRound.length === 4) {
+                roundTitle.textContent = '🥉 Semi-Final';
+            } else {
+                roundTitle.textContent = `Round ${roundNumber}`;
+            }
+            
+            let fixtures = '';
+            
+            // Create matches (pairs of players)
+            for (let i = 0; i < currentRound.length; i += 2) {
+                const player1 = currentRound[i];
+                const player2 = currentRound[i + 1];
+                const matchId = `match_${i/2}`;
+                
+                if (player2 === 'COM') {
+                    // Match against COM - player needs to click to win
+                    const result = matchResults[matchId];
+                    fixtures += `
+                        <div class="bg-white rounded-lg shadow-md p-4 mb-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1 text-center">
+                                    <button 
+                                        onclick="selectWinner('${player1}', '${matchId}')"
+                                        class="w-full px-3 py-3 rounded-md font-semibold transition-colors ${
+                                            result === player1 ? 'bg-green-500 text-white' : 'bg-red-500 hover:bg-red-600 text-white'
+                                        }"
+                                    >
+                                        ${player1}
+                                    </button>
+                                </div>
+                                <div class="px-4">
+                                    <span class="text-gray-600 font-bold">VS</span>
+                                </div>
+                                <div class="flex-1 text-center">
+                                    <button 
+                                        onclick="selectWinner('COM', '${matchId}')"
+                                        class="w-full px-3 py-3 rounded-md font-semibold transition-colors ${
+                                            result === 'COM' ? 'bg-green-500 text-white' : 'bg-gray-500 hover:bg-gray-600 text-white'
+                                        }"
+                                    >
+                                        🤖 COM
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-center mt-2">
+                                <span class="text-xs text-gray-500">
+                                    ${result ? `Winner: ${result}` : 'Click winner to advance'}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const result = matchResults[matchId];
+                    fixtures += `
+                        <div class="bg-white rounded-lg shadow-md p-4 mb-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1 text-center">
+                                    <button 
+                                        onclick="selectWinner('${player1}', '${matchId}')"
+                                        class="w-full px-3 py-3 rounded-md font-semibold transition-colors ${
+                                            result === player1 ? 'bg-green-500 text-white' : 'bg-red-500 hover:bg-red-600 text-white'
+                                        }"
+                                    >
+                                        ${player1}
+                                    </button>
+                                </div>
+                                <div class="px-4">
+                                    <span class="text-gray-600 font-bold">VS</span>
+                                </div>
+                                <div class="flex-1 text-center">
+                                    <button 
+                                        onclick="selectWinner('${player2}', '${matchId}')"
+                                        class="w-full px-3 py-3 rounded-md font-semibold transition-colors ${
+                                            result === player2 ? 'bg-green-500 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'
+                                        }"
+                                    >
+                                        ${player2}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="text-center mt-2">
+                                <span class="text-xs text-gray-500">
+                                    ${result ? `Winner: ${result}` : 'Click winner to advance'}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            tournamentDisplay.innerHTML = fixtures;
+            
+            // Check if all matches are complete
+            const totalMatches = Math.floor(currentRound.length / 2);
+            const completedMatches = Object.keys(matchResults).length;
+            const nextRoundStatus = document.getElementById('nextRoundStatus');
+            
+            if (completedMatches === totalMatches) {
+                if (currentRound.length === 2) {
+                    // Tournament is complete
+                    const champion = winners[0];
+                    
+                    // Add champion to all winners if not already there
+                    if (!allWinners.includes(champion)) {
+                        allWinners.push(champion);
+                    }
+                    
+                    nextRoundBtn.innerHTML = '🏆 TOURNAMENT COMPLETE! 🏆';
+                    nextRoundBtn.className = 'w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white py-5 rounded-xl font-bold text-xl shadow-lg transition-all transform hover:scale-105';
+                    nextRoundBtn.disabled = false;
+                    nextRoundStatus.textContent = 'Click to see champion!';
+                    nextRoundBtn.onclick = () => {
+                        alert(`🏆 Champion: ${champion}!\n\nTotal Winners: ${allWinners.length}`);
+                        // Show winners tournament button if we have multiple winners
+                        if (allWinners.length >= 2) {
+                            document.getElementById('winnersTournamentBtn').classList.remove('hidden');
+                        }
+                    };
+                } else {
+                    nextRoundBtn.innerHTML = '⚡ NEXT ROUND ⚡';
+                    nextRoundBtn.className = 'w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white py-5 rounded-xl font-bold text-xl shadow-lg transition-all transform hover:scale-105';
+                    nextRoundBtn.disabled = false;
+                    nextRoundStatus.textContent = 'All matches complete - Ready to advance!';
+                    nextRoundBtn.onclick = nextRound;
+                }
+            } else {
+                nextRoundBtn.innerHTML = '⚡ NEXT ROUND ⚡';
+                nextRoundBtn.className = 'w-full bg-gray-500 text-white py-5 rounded-xl font-bold text-xl shadow-lg transition-all cursor-not-allowed';
+                nextRoundBtn.disabled = true;
+                nextRoundStatus.textContent = `Complete ${totalMatches - completedMatches} more matches to advance`;
+                nextRoundBtn.onclick = null;
+            }
+        }
+
+        function selectWinner(winner, matchId) {
+            matchResults[matchId] = winner;
+            if (!winners.includes(winner)) {
+                winners.push(winner);
+            }
+            displayTournament();
+        }
+
+        function nextRound() {
+            if (winners.length < 2) return;
+            
+            currentRound = [...winners];
+            winners = [];
+            matchResults = {};
+            roundNumber++;
+            
+            // Add COM if odd number
+            if (currentRound.length % 2 !== 0) {
+                currentRound.push('COM');
+            }
+            
+            displayTournament();
+        }
+        
+        function goBackToPlayers() {
+            document.getElementById('tournamentPage').classList.add('hidden');
+            updateWinnersDisplay();
+        }
+
+        function updateWinnersDisplay() {
+            const winnersSection = document.getElementById('winnersSection');
+            const winnersList = document.getElementById('winnersList');
+            
+            if (allWinners.length > 0) {
+                winnersSection.classList.remove('hidden');
+                winnersList.innerHTML = allWinners.map((winner, index) => `
+                    <div class="flex justify-between items-center bg-white px-4 py-3 rounded-lg border-2 border-yellow-300">
+                        <span class="font-bold text-gray-800">🏆 ${winner}</span>
+                        <span class="text-sm text-gray-600">Champion #${index + 1}</span>
+                    </div>
+                `).join('');
+            } else {
+                winnersSection.classList.add('hidden');
+            }
+        }
+
+        function clearWinners() {
+            if (confirm('Are you sure you want to clear all winners?')) {
+                allWinners = [];
+                updateWinnersDisplay();
+                document.getElementById('winnersTournamentBtn').classList.add('hidden');
+            }
+        }
+
+        // Version 5 Functions
+        function quickStart() {
+            const samplePlayers = ['Alex', 'Jordan', 'Casey', 'Morgan', 'Taylor', 'Riley', 'Avery', 'Quinn'];
+            const shuffled = samplePlayers.sort(() => Math.random() - 0.5);
+            const numPlayers = Math.floor(Math.random() * 4) + 4; // 4-8 players
+            
+            players = shuffled.slice(0, numPlayers);
+            updatePlayersList();
+            updateGenerateButton();
+            alert(`Quick Start! Added ${numPlayers} random players. Ready to tournament!`);
+        }
+
+        function randomizeTeams() {
+            if (players.length < 2) {
+                alert('Add at least 2 players first!');
+                return;
+            }
+            players = players.sort(() => Math.random() - 0.5);
+            updatePlayersList();
+            alert('Players randomized! Start tournament for new matchups.');
+        }
+
+        function showStats() {
+            const totalPlayers = players.length;
+            const totalWinners = allWinners.length;
+            const uniqueWinners = [...new Set(allWinners)].length;
+            
+            let statsMessage = `📊 SAMBULAKAVAKAVA FC STATS\n\n`;
+            statsMessage += `Current Players: ${totalPlayers}\n`;
+            statsMessage += `Total Tournaments: ${totalWinners}\n`;
+            statsMessage += `Unique Champions: ${uniqueWinners}\n\n`;
+            
+            if (allWinners.length > 0) {
+                const winCounts = {};
+                allWinners.forEach(winner => {
+                    winCounts[winner] = (winCounts[winner] || 0) + 1;
+                });
+                
+                const sortedWinners = Object.entries(winCounts)
+                    .sort(([,a], [,b]) => b - a)
+                    .slice(0, 3);
+                
+                statsMessage += `🏆 TOP CHAMPIONS:\n`;
+                sortedWinners.forEach(([name, wins], index) => {
+                    const medal = ['🥇', '🥈', '🥉'][index];
+                    statsMessage += `${medal} ${name}: ${wins} wins\n`;
+                });
+            }
+            
+            alert(statsMessage);
+        }
+
+        function exportResults() {
+            const data = {
+                players: players,
+                winners: allWinners,
+                timestamp: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'sambulakavakava-fc-results.json';
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            alert('Results exported! Check your downloads folder.');
+        }
+
+        function showWinnerStats() {
+            if (allWinners.length === 0) {
+                alert('No winners yet! Complete some tournaments first.');
+                return;
+            }
+            
+            const winCounts = {};
+            allWinners.forEach(winner => {
+                winCounts[winner] = (winCounts[winner] || 0) + 1;
+            });
+            
+            let statsMessage = `🏆 WINNER STATISTICS\n\n`;
+            Object.entries(winCounts)
+                .sort(([,a], [,b]) => b - a)
+                .forEach(([name, wins]) => {
+                    const percentage = ((wins / allWinners.length) * 100).toFixed(1);
+                    statsMessage += `${name}: ${wins} wins (${percentage}%)\n`;
+                });
+            
+            alert(statsMessage);
+        }
+
+        // Allow Enter key to add player
+        document.getElementById('playerName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addPlayer();
+            }
+        });
+
+        // PWA Installation
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            // Show the install button
+            installBtn.classList.remove('hidden');
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                // Show the install prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                        installBtn.classList.add('hidden');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // Fallback for iOS Safari
+                if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+                    alert('To install this app on iOS:\n1. Tap the Share button\n2. Select "Add to Home Screen"\n3. Tap "Add"');
+                } else {
+                    alert('This app can be installed! Look for the install option in your browser menu.');
+                }
+            }
+        }
+
+        // Hide install button if app is already installed
+        window.addEventListener('appinstalled', () => {
+            installBtn.classList.add('hidden');
+            console.log('PWA was installed');
+        });
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'sambulakavakava-fc-v1';
+                    const urlsToCache = ['/'];
+                    
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+                    
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    return response || fetch(event.request);
+                                })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978a052783f34046',t:'MTc1Njc4NDc4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
