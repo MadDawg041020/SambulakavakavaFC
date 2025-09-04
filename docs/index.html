@@ -10,18 +10,36 @@
         const manifest = {
             "name": "Sambulakavakava FC Tournament Manager",
             "short_name": "Sambulakavakava FC",
-            "description": "Fully functional tournament manager for Sambulakavakava FC - create and manage football tournaments",
+            "description": "Professional tournament management system for Sambulakavakava FC with knockout and round-robin tournaments",
             "start_url": "./",
             "display": "standalone",
-            "background_color": "#1e3a8f",
-            "theme_color": "#1e3a8f",
-            "id": "sambulakavakava-fc-tournament",
+            "background_color": "#0a0a0a",
+            "theme_color": "#00d4ff",
+            "id": "sambulakavakava-fc-tournament-manager",
+            "orientation": "portrait",
+            "launch_handler": {
+                "client_mode": "navigate-existing"
+            },
             "icons": [
                 {
-                    "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48Y2lyY2xlIGN4PSI1MTIiIGN5PSI1MTIiIHI9IjE1MiIgZmlsbD0iIzFlM2E4ZiIvPjwvY2lyY2xlPjxyZWN0IHg9IjEwMCIgeT0iMTAwIiB3aWR0aD0iMzEyIiBoZWlnaHQ9IjMxMiIgZmlsbD0iI2ZmZmZmZiIvPjwvcmVjdD48dGV4dCB4PSIyNTYiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2FmMGFmNCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiPlNBTUJVTEFLQVZBS0FWQUZDPC90ZXh0Pjwvc3ZnPg==",
+                    "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZDRmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwOTljYyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiBmaWxsPSJ1cmwoI2JnKSIgcng9IjY0Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIxNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSI4Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSI4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjQiLz48cGF0aCBkPSJNMjU2IDEyMEwyNTYgMzkybTEzNi0xMzZIMTIwIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iNCIvPjx0ZXh0IHg9IjI1NiIgeT0iNDcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmZmZmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIj5TQU1CVUxBPC90ZXh0Pjx0ZXh0IHg9IjI1NiIgeT0iNTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmZmZmYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiPkZDPC90ZXh0Pjwvc3ZnPg==",
                     "sizes": "512x512",
                     "type": "image/svg+xml",
-                    "purpose": "any maskable"
+                    "purpose": "any"
+                },
+                {
+                    "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwZDRmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwOTljYyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiBmaWxsPSJ1cmwoI2JnKSIgcng9IjEyOCIvPjxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTIwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMTIiLz48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjY0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iOCIvPjxwYXRoIGQ9Ik0yNTYgMTM2TDI1NiAzNzZtMTIwLTEyMEgxMzYiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSI4Ii8+PHRleHQgeD0iMjU2IiB5PSI0NTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmZmZmYiIGZvbnQtc2l6ZT0iNDAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiPlNBTUJVTEE8L3RleHQ+PHRleHQgeD0iMjU2IiB5PSI4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZmZmZiIgZm9udC1zaXplPSIzMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiI+RkM8L3RleHQ+PC9zdmc+",
+                    "sizes": "512x512",
+                    "type": "image/svg+xml",
+                    "purpose": "maskable"
+                }
+            ],
+            "screenshots": [
+                {
+                    "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NDAiIGhlaWdodD0iNzIwIj48cmVjdCB3aWR0aD0iNTQwIiBoZWlnaHQ9IjcyMCIgZmlsbD0iIzBhMGEwYSIvPjx0ZXh0IHg9IjI3MCIgeT0iMzYwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjMDBkNGZmIiBmb250LXNpemU9IjI0Ij5TYW1idWxha2F2YWthdmEgRkM8L3RleHQ+PC9zdmc+",
+                    "sizes": "540x720",
+                    "type": "image/svg+xml",
+                    "form_factor": "narrow"
                 }
             ]
         };
@@ -34,8 +52,18 @@
         // Register service worker
         if ('serviceWorker' in navigator) {
             const swCode = `
+                const CACHE_NAME = 'sambulakavakava-fc-v1';
+                const urlsToCache = [
+                    './',
+                    './index.html'
+                ];
+
                 self.addEventListener('install', event => {
-                    event.waitUntil(self.skipWaiting());
+                    event.waitUntil(
+                        caches.open(CACHE_NAME)
+                            .then(cache => cache.addAll(urlsToCache))
+                            .then(() => self.skipWaiting())
+                    );
                 });
                 
                 self.addEventListener('activate', event => {
@@ -43,7 +71,15 @@
                 });
                 
                 self.addEventListener('fetch', event => {
-                    event.respondWith(fetch(event.request));
+                    event.respondWith(
+                        caches.match(event.request)
+                            .then(response => {
+                                if (response) {
+                                    return response;
+                                }
+                                return fetch(event.request);
+                            })
+                    );
                 });
             `;
             
@@ -350,8 +386,6 @@
             <h1>⚽ Sambulakavakava FC</h1>
             <p>Professional Tournament Management System</p>
         </div>
-
-
 
         <div class="main-content">
             <div class="card">
@@ -841,5 +875,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978a5b3840814046',t:'MTc1Njc4ODMxMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'979a77b5e3b385e6',t:'MTc1Njk1NzI0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
